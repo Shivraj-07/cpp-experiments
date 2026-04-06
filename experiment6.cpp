@@ -1,35 +1,29 @@
-
-#include <iostream> // Header file for input and output
+#include <iostream>
 using namespace std;
-// Class definition
-class Sample
+class Demo
 {
 private:
- int a, b; // Private data members
+    int num1, num2;
 public:
- // Constructor to initialize values
- Sample(int x, int y)
- {
- a = x; // Assign value to a
- b = y; // Assign value to b
- }
- // Friend function declaration
- friend void showData(Sample s);
+    Demo(int x, int y)
+    {
+        num1 = x;
+        num2 = y;
+    }
+
+    friend void display(Demo d);
 };
-// Friend function definition
-void showData(Sample s)
+
+void display(Demo d)
 {
- // Accessing private members of class
- cout << "Value of a = " << s.a << endl;
- cout << "Value of b = " << s.b << endl;
- cout << "Sum = " << (s.a + s.b) << endl;
+    cout << "First Value: " << d.num1 << endl;
+    cout << "Second Value: " << d.num2 << endl;
+    cout << "Addition: " << d.num1 + d.num2 << endl;
 }
-// Main function
+
 int main()
 {
- // Create object of Sample class
- Sample obj(10, 20);
- // Call friend function
- showData(obj);
- return 0; // End of program
+    Demo d1(10, 20);
+    display(d1);
+    return 0;
 }
