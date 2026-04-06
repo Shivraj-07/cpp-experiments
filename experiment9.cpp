@@ -1,72 +1,74 @@
 #include <iostream>
 #include <string>
 using namespace std;
-// Abstract class
-class Shape
+
+class Figure
 {
 public:
- // Pure virtual function (makes this class abstract)
- virtual void area() = 0;
- // Another pure virtual function
- virtual void perimeter() = 0;
+    virtual void calculateArea() = 0;
+    virtual void calculatePerimeter() = 0;
 };
-// Derived class: Rectangle
-class Rectangle : public Shape
+class Rect : public Figure
 {
 private:
- float length, width;
+    double l, w;
+
 public:
- // Function to accept rectangle dimensions
- void getData()
- {
- cout << "Enter length of rectangle: ";
- cin >> length;
- cout << "Enter width of rectangle: ";
- cin >> width;
- }
- // Override pure virtual function to calculate area
- void area()
- {
- cout << "Area of rectangle = " << length * width << endl;
- }
- // Override pure virtual function to calculate perimeter
- void perimeter()
- {
- cout << "Perimeter of rectangle = " << 2 * (length + width) << endl;
- }
+    void input()
+    {
+        cout << "Enter length: ";
+        cin >> l;
+        cout << "Enter width: ";
+        cin >> w;
+    }
+
+    void calculateArea()
+    {
+        cout << "Rectangle Area = " << l * w << endl;
+    }
+
+    void calculatePerimeter()
+    {
+        cout << "Rectangle Perimeter = " << 2 * (l + w) << endl;
+    }
 };
-// Derived class: Circle
-class Circle : public Shape
+class Circ : public Figure
 {
 private:
- float radius;
+    double r;
+
 public:
- void getData()
- {
- cout << "Enter radius of circle: ";
- cin >> radius;
- }
- void area()
- {
- cout << "Area of circle = " << 3.1416 * radius * radius << endl;
- }
- void perimeter()
- {
- cout << "Perimeter (Circumference) of circle = " << 2 * 3.1416 * radius << endl;
- }
+    void input()
+    {
+        cout << "Enter radius: ";
+        cin >> r;
+    }
+
+    void calculateArea()
+    {
+        cout << "Circle Area = " << 3.14 * r * r << endl;
+    }
+
+    void calculatePerimeter()
+    {
+        cout << "Circle Circumference = " << 2 * 3.14 * r << endl;
+    }
 };
-// Main function
+
 int main()
 {
- Rectangle rect;
- Circle circ;
- cout << "--- Rectangle ---\n";
- rect.getData();
- rect.area();
- rect.perimeter();
- cout << "\n--- Circle ---\n";
- circ.getData();
- circ.area();
- circ.perimeter();
- return 0;
+    Rect r1;
+    Circ c1;
+
+    cout << "--- Rectangle ---\n";
+    r1.input();
+    r1.calculateArea();
+    r1.calculatePerimeter();
+
+    cout << "\n--- Circle ---\n";
+    c1.input();
+    c1.calculateArea();
+    c1.calculatePerimeter();
+
+    return 0;
 }
