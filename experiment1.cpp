@@ -1,82 +1,89 @@
-#include <iostream> 
-#include <iomanip> 
+#include <iostream>
+#include <iomanip>
 using namespace std;
-class HotelBill
+
+class RestaurantBill
 {
 private:
-int tableNo, items; 
-string customerName; 
-long long contact; 
-float total, discount, payable; // Stores bill details
+    int table_id, item_count;
+    string name;
+    long long phone;
+    double amount = 0, disc = 0, finalAmount = 0;
+
 public:
-void getCustomerDetails()
-{
-// Accept table number
-cout << "Enter Table Number: ";
-cin >> tableNo;
-cin.ignore();
-cout << "Enter Customer Name: ";
-getline(cin, customerName);
-// Accept customer contact number
-cout << "Enter Customer Contact Number: ";
-cin >> contact;
-}
+    void inputCustomer()
+    {
+        cout << "Enter Table Number: ";
+        cin >> table_id;
 
-void getOrderDetails()
-{
-int qty; // Quantity of each item
-float price; // Price of each item
-total = 0; // Initialize total bill amount
+        cin.ignore();
+        cout << "Enter Customer Name: ";
+        getline(cin, name);
 
-cout << "\nEnter Number of Items Ordered: ";
-cin >> items;
+        cout << "Enter Customer Contact Number: ";
+        cin >> phone;
+    }
 
-for (int i = 1; i <= items; i++)
-{
-cout << "\nItem " << i << " Quantity: ";
-cin >> qty;
-cout << "Item " << i << " Price: ";
-cin >> price;
-// Calculate total amount
-total += qty * price;
-}
-}
+    void inputItems()
+    {
+        cout << "\nEnter Number of Items Ordered: ";
+        cin >> item_count;
 
-void calculateBill()
-{
-// Apply discount based on total amount
-if (total >= 2000)
-discount = total * 0.20; // 20% discount
-else if (total >= 1000)
-discount = total * 0.10; // 10% discount
-else
-discount = 0; // No discount
+        int quantity;
+        double rate;
 
+        for (int i = 0; i < item_count; i++)
+        {
+            cout << "\nEnter Quantity for Item " << i + 1 << ": ";
+            cin >> quantity;
 
-payable = total - discount;
-}
-// Member function to display the final bill
-void displayBill()
-{
-cout << "\n---------- HOTEL BILL ----------\n";
-cout << "Table No : " << tableNo << endl;
-cout << "Customer Name : " << customerName << endl;
-cout << "Contact Number : " << contact << endl;
-// Display bill amount with two decimal places
-cout << fixed << setprecision(2);
-cout << "Total Amount : Rs. " << total << endl;
-cout << "Discount : Rs. " << discount << endl;
-cout << "Payable Amount : Rs. " << payable << endl;
-}
+            cout << "Enter Price for Item " << i + 1 << ": ";
+            cin >> rate;
+
+            amount = amount + (quantity * rate);
+        }
+    }
+
+    void computeBill()
+    {
+        if (amount >= 2000)
+        {
+            disc = amount * 0.20;
+        }
+        else if (amount >= 1000)
+        {
+            disc = amount * 0.10;
+        }
+        else
+        {
+            disc = 0;
+        }
+
+        finalAmount = amount - disc;
+    }
+
+    void showBill()
+    {
+        cout << "\n========== HOTEL BILL ==========\n";
+        cout << "Table Number : " << table_id << endl;
+        cout << "Customer Name : " << name << endl;
+        cout << "Contact : " << phone << endl;
+
+        cout << fixed << setprecision(2);
+        cout << "Total : Rs. " << amount << endl;
+        cout << "Discount : Rs. " << disc << endl;
+        cout << "Amount to Pay : Rs. " << finalAmount << endl;
+    }
 };
+
 int main()
 {
-// Create an object of HotelBill class
-HotelBill bill;
-// Call member functions using object
-bill.getCustomerDetails(); 
-bill.getOrderDetails(); 
-bill.calculateBill(); 
-bill.displayBill();
-return 0; // End of program
+    RestaurantBill obj;
+
+    obj.inputCustomer();
+    obj.inputItems();
+    obj.computeBill();
+    obj.showBill();
+
+    return 0;
 }
