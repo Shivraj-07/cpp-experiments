@@ -1,72 +1,72 @@
-#include <iostream> 
-using namespace std; 
-// Class definition
-class Student
+#include <iostream>
+using namespace std;
+
+class StudentRecord
 {
 private:
-int rollNo; 
-string name; 
-string div;
-float marks[10]; 
-float total; 
-float percentage; 
-int n; 
+    int rno, subjectCount;
+    string studentName, division;
+    float scores[10];
+    float sumMarks = 0;
+    float percent = 0;
+
 public:
+    void inputDetails()
+    {
+        cout << "\nEnter Roll Number: ";
+        cin >> rno;
 
-void getData()
-{
-// Accept roll number
-cout << "\nEnter Roll Number: ";
-cin >> rollNo;
-cin.ignore();
-// Accept name
-cout << "\nEnter name: ";
-getline(cin, name);
+        cin.ignore();
+        cout << "Enter Name: ";
+        getline(cin, studentName);
 
-cout << "\nEnter Division: ";
-getline(cin, div);
+        cout << "Enter Division: ";
+        getline(cin, division);
 
-cout << "Enter number of subjects: ";
-cin >> n;
-total = 0; 
+        cout << "Enter total subjects: ";
+        cin >> subjectCount;
 
-for (int i = 0; i < n; i++)
-{
-cout << "Enter marks of subject " << i + 1 << ": ";
-cin >> marks[i];
-total = total + marks[i]; 
-}
-}
+        sumMarks = 0;
 
-void calculate()
-{
-percentage = total / n; 
-}
+        for (int i = 0; i < subjectCount; i++)
+        {
+            cout << "Marks for subject " << i + 1 << ": ";
+            cin >> scores[i];
+            sumMarks += scores[i];
+        }
+    }
 
-void display()
-{
-cout << "\nRoll Number : " << rollNo;
-cout << "\nName: " << name;
-cout << "\nDivision: " << div;
-cout << "\nTotal Marks : " << total;
-cout << "\nPercentage : " << percentage << "%\n";
-}
+    void findPercentage()
+    {
+        if (subjectCount != 0)
+            percent = sumMarks / subjectCount;
+    }
+
+    void printDetails()
+    {
+        cout << "\nRoll No: " << rno;
+        cout << "\nName: " << studentName;
+        cout << "\nDivision: " << division;
+        cout << "\nTotal Marks: " << sumMarks;
+        cout << "\nPercentage: " << percent << "%\n";
+    }
 };
 
 int main()
 {
-int stud;
+    int count;
+    cout << "Enter number of students: ";
+    cin >> count;
 
-cout << "Enter number of students: ";
-cin >> stud;
-Student s[10]; 
+    StudentRecord list[10];
 
-for (int i = 0; i < stud; i++)
-{
-cout << "\n--- Student " << i + 1 << " ---";
-s[i].getData(); 
-s[i].calculate(); 
-s[i].display(); 
-}
-return 0; // End of program
+    for (int i = 0; i < count; i++)
+    {
+        cout << "\n--- Details of Student " << i + 1 << " ---";
+        list[i].inputDetails();
+        list[i].findPercentage();
+        list[i].printDetails();
+    }
+
+    return 0;
 }
