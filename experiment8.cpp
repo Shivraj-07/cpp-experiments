@@ -1,93 +1,99 @@
 #include <iostream>
 #include <string>
 using namespace std;
-// Base class: Employee
-class Employee
+
+class Staff
 {
 protected:
- int empId;
- string empName;
- float basicSalary;
+    int id;
+    string name;
+    double salary;
+
 public:
- void getEmployeeInfo()
- {
- cout << "Enter Employee ID: ";
- cin >> empId;
- cin.ignore();
- cout << "Enter Employee Name: ";
- getline(cin, empName);
- cout << "Enter Basic Salary: ";
- cin >> basicSalary;
- }
+    void inputBasic()
+    {
+        cout << "Enter Employee ID: ";
+        cin >> id;
+
+        cin.ignore();
+        cout << "Enter Employee Name: ";
+        getline(cin, name);
+
+        cout << "Enter Basic Salary: ";
+        cin >> salary;
+    }
 };
-// Derived class (Multilevel): Department
-class Department : public Employee
+class Section : public Staff
 {
 protected:
- string deptName;
+    string sectionName;
+
 public:
- void getDepartmentInfo()
- {
- cin.ignore();
- cout << "Enter Department Name: ";
- getline(cin, deptName);
- }
+    void inputSection()
+    {
+        cin.ignore();
+        cout << "Enter Department Name: ";
+        getline(cin, sectionName);
+    }
 };
-// Derived class (Multilevel): PF (from Department)
-class PF : public Department
+class ProvidentFund : public Section
 {
-protected:
- float pfAmount;
+private:
+    double pf;
+
 public:
- void calculatePF()
- {
- pfAmount = basicSalary * 0.12; // 12% of basic salary
- }
- void displayPFInfo()
- {
- cout << "\n--- Employee Details (Multilevel Inheritance) ---\n";
- cout << "Employee ID : " << empId << endl;
- cout << "Employee Name : " << empName << endl;
- cout << "Department : " << deptName << endl;
- cout << "Basic Salary : " << basicSalary << endl;
- cout << "PF Amount (12%) : " << pfAmount << endl;
- }
+    void computePF()
+    {
+        pf = salary * 0.12;
+    }
+
+    void showPF()
+    {
+        cout << "\n=== Employee PF Details ===\n";
+        cout << "ID: " << id << endl;
+        cout << "Name: " << name << endl;
+        cout << "Department: " << sectionName << endl;
+        cout << "Salary: " << salary << endl;
+        cout << "PF (12%): " << pf << endl;
+    }
 };
-// Another Derived class (Hierarchical) from Employee
-class Project : public Employee
+
+class Assignment : public Staff
 {
-protected:
- string projectName;
+private:
+    string project;
+
 public:
- void getProjectInfo()
- {
- cin.ignore();
- cout << "Enter Project Name: ";
- getline(cin, projectName);
- }
- void displayProjectInfo()
- {
- cout << "\n--- Employee Project Info (Hierarchical Inheritance) ---\n";
- cout << "Employee ID : " << empId << endl;
- cout << "Employee Name : " << empName << endl;
- cout << "Project Name : " << projectName << endl;
- }
+    void inputProject()
+    {
+        cin.ignore();
+        cout << "Enter Project Name: ";
+        getline(cin, project);
+    }
+
+    void showProject()
+    {
+        cout << "\n=== Employee Project Details ===\n";
+        cout << "ID: " << id << endl;
+        cout << "Name: " << name << endl;
+        cout << "Project: " << project << endl;
+    }
 };
-// Main function
+
 int main()
 {
- // Object for multilevel inheritance
- PF emp1;
- cout << "--- Enter Employee Info for PF ---\n";
- emp1.getEmployeeInfo();
- emp1.getDepartmentInfo();
- emp1.calculatePF();
- emp1.displayPFInfo();
- // Object for hierarchical inheritance
- Project emp2;
- cout << "\n--- Enter Employee Info for Project ---\n";
- emp2.getEmployeeInfo();
- emp2.getProjectInfo();
- emp2.displayProjectInfo();
- return 0;
+    ProvidentFund e1;
+    cout << "--- Enter Details for PF Calculation ---\n";
+    e1.inputBasic();
+    e1.inputSection();
+    e1.computePF();
+    e1.showPF();
+
+    Assignment e2;
+    cout << "\n--- Enter Details for Project ---\n";
+    e2.inputBasic();
+    e2.inputProject();
+    e2.showProject();
+
+    return 0;
 }
