@@ -1,52 +1,41 @@
-#include <iostream> // Header file for input and output
+#include <iostream>
 using namespace std;
-// Class definition
-class Calculator
+
+class SimpleCalc
 {
 private:
- float a, b; // Data members to store two numbers
+    double num1, num2;
 public:
- // Function to accept values
- void getData(float x, float y)
- {
- a = x; // Assign first number
- b = y; // Assign second number
- }
- // Inline function for addition
- inline float add()
- {
- return a + b;
- }
- // Inline function for subtraction
- inline float subtract()
- {
- return a - b;
- }
- // Inline function for multiplication
- inline float multiply()
- {
- return a * b;
- }
- // Inline function for division
- inline float divide()
- {
- return a / b;
- }
+    void setValues(double v1, double v2)
+    {
+        num1 = v1;
+        num2 = v2;
+    }
+    inline double sum() { return num1 + num2; }
+    inline double diff() { return num1 - num2; }
+    inline double prod() { return num1 * num2; }
+    inline double quotient()
+    {
+        if (num2 != 0)
+            return num1 / num2;
+        else
+        {
+            cout << "Division by zero not allowed!\n";
+            return 0;
+        }
+    }
 };
-// Main function
 int main()
 {
- Calculator calc; // Create object of Calculator class
- float x, y;
- // Accept input from user
- cout << "Enter two numbers: ";
- cin >> x >> y;
- // Pass values to object
- calc.getData(x, y);
- // Display results
- cout << "\nAddition = " << calc.add();
- cout << "\nSubtraction = " << calc.subtract();
- cout << "\nMultiplication = " << calc.multiply();
- cout << "\nDivision = " << calc.divide();
- return 0 
+    SimpleCalc sc;
+    double n1, n2;
+    cout << "Enter two numbers: ";
+    cin >> n1 >> n2;
+    sc.setValues(n1, n2);
+    cout << "\nAddition: " << sc.sum();
+    cout << "\nSubtraction: " << sc.diff();
+    cout << "\nMultiplication: " << sc.prod();
+    cout << "\nDivision: " << sc.quotient();
+
+    return 0;
 }
