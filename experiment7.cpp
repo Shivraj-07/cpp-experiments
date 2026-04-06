@@ -45,7 +45,6 @@ public:
  in >> c.imag;
  return in;
  }
- // Friend function to overload << for output
  friend ostream& operator<<(ostream &out, Complex c)
  {
  out << c.real;
@@ -56,7 +55,7 @@ public:
  return out;
  }
 };
-// Main function
+
 int main()
 {
  Complex c1, c2, sum, product;
@@ -64,11 +63,8 @@ int main()
  cin >> c1;
  cout << "\n--- Input second complex number ---\n";
  cin >> c2;
- // Perform addition
  sum = c1 + c2;
- // Perform multiplication
  product = c1 * c2;
- // Display results
  cout << "\nSum of complex numbers: " << sum << endl;
  cout << "Product of complex numbers: " << product << endl;
  return 0;
